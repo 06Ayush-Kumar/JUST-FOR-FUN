@@ -1,3 +1,33 @@
+// This project simulates the characteristics of different animals based on user-defined inputs for life status, number of legs, and presence of a backbone.
+//
+// Theoretical Background:
+//
+// 1. **Animal Classification**:
+//    Animals can be broadly classified into two main categories based on their life status:
+//    - **Alive**: Indicates that the animal is currently living and functional.
+//    - **Dead**: Indicates that the animal is no longer living.
+//
+// 2. **Legs**:
+//    The number of legs is a key characteristic in classifying animals. Common classifications include:
+//    - **Alegic**: Animals with no legs (e.g., some species of snakes).
+//    - **Bipedal**: Animals with two legs (e.g., humans, birds).
+//    - **Quadrupedal**: Animals with four legs (e.g., dogs, cats).
+//    - **Hexapod**: Animals with six legs (e.g., insects).
+//    - **Octopod**: Animals with eight legs (e.g., octopuses).
+//    - **Decapod**: Animals with ten legs (e.g., certain crustaceans).
+//
+// 3. **Backbone**:
+//    - **Vertebrate**: Animals that possess a backbone (e.g., mammals, birds, reptiles).
+//    - **Invertebrate**: Animals that lack a backbone (e.g., insects, mollusks).
+//
+// 4. **Object-Oriented Programming (OOP) Concepts**:
+//    - This project demonstrates basic OOP principles including encapsulation, where the attributes of the `Animal` class (life, legs, backbones) are kept private to maintain data integrity.
+//    - The class provides setter functions to update these attributes and print information about the animal based on user input.
+//    - Getter functions allow access to the attributes if needed in future expansions of the program.
+//
+// 5. **User Interaction**:
+//    The program prompts the user to input the number of animals they wish to create, along with the characteristics of each animal. Each animal object is instantiated with the provided details, demonstrating the flexibility of the class to represent various animals.
+
 #include <iostream>
 #include <string>
 using namespace std;
