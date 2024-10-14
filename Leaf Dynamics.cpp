@@ -10,6 +10,7 @@ private:
     float mass;          
     float area;          
     float attach_force;  
+    float tensile_strength;
     
     const float g = 9.8;        
     const float density = 1.225; 
@@ -17,11 +18,11 @@ private:
 
 public:
     
-    Leaf(float ws, float m, float a, float af) {
+    Leaf(float ws, float m, float a, float ts) {
         check_wind_speed(ws);
         check_mass(m);
         check_area(a);
-        check_attach_force(af);
+        check_tensile_strength(ts);
     }
 
     
@@ -55,12 +56,12 @@ public:
     }
 
    
-    void check_attach_force(float af) {
-        if (af >= 0) {
-            attach_force = af;
+    void check_tensile_strength(float ts) {
+        if (ts>= 0) {
+            tensile_strength=ts;
         } else {
-            cout << "Attach force can't be negative. Setting to 0." << endl;
-            attach_force = 0;
+            cout << "tensile strenth can't be negative. Setting to 0." << endl;
+            tensile_strength = 0;
         }
     }
 
@@ -69,9 +70,20 @@ public:
         return 0.5 * Cd * density * area * wind_speed * wind_speed;
     }
 
-   
+float calculateattachforce(){
+    attach_force=tensile_strength*area;
+    return attach_force;
+}
+void display_draf_force(){
+    cout<<calculateDragForce();
+}
+void display_attach_force(){
+cout<<calculateattachforce();
+}
+
     void checkDetachment() const {
         float drag_force = calculateDragForce();
+        float attachment_force=calculateattachforce();
         float total_force = sqrt((drag_force * drag_force) + (mass * g) * (mass * g));
 
         if (wind_speed == 0) {
@@ -94,13 +106,13 @@ int main() {
     cin >> area;
     cout << "Tell the wind speed: ";
     cin >> wind_speed;
-    cout << "Write the attach force: ";
-    cin >> attach_force;
+    cout << "Write the tensile strength: ";
+    cin >> tensile_strength;
     
     
-    Leaf leaf(wind_speed, mass, area, attach_force);
+    Leaf leaf(wind_speed, mass, area, tensile_strength);
     
-  
+    leaf.display
     leaf.checkDetachment();
 
     return 0;
