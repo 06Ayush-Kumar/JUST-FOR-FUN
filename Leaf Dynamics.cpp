@@ -1,4 +1,28 @@
-// This project simulates the conditions under which a leaf will detach from a tree based on user-defined inputs for mass, area, wind speed, and attachment force.
+// This project simulates the conditions under which a leaf will detach from a tree based on user-defined inputs for mass, area, wind speed, and tensile strength of the leaf material.
+//
+// Theoretical Background:
+//
+// 1. **Forces Acting on the Leaf**:
+//    - **Gravitational Force (Weight)**: The force due to gravity acting on the leaf, calculated as:
+//      F_gravity = mass * g
+//      where g is the acceleration due to gravity (approximately 9.8 m/s^2).
+//
+//    - **Drag Force**: The aerodynamic force acting against the wind. This force is influenced by the wind speed, the cross-sectional area of the leaf, and the drag coefficient (Cd). The drag force can be calculated using the formula:
+//      F_drag = 0.5 * Cd * density * area * wind_speed^2
+//      where:
+//        - Cd is the drag coefficient (depends on the shape of the object, typically around 1.2 for flat plates).
+//        - density is the air density (approximately 1.225 kg/m^3 at sea level).
+//
+// 2. **Tensile Strength**: This is the maximum amount of tensile (pulling) stress that a material can withstand before failure. The attachment force of the leaf can be calculated based on its tensile strength and area:
+//    F_attachment = tensile_strength * area
+//
+// 3. **Detachment Condition**:
+//    - The leaf will remain attached to the tree if the attachment force is greater than the total force acting on it (which includes both gravitational and drag forces). The total force is calculated as:
+//      total_force = sqrt(F_drag^2 + F_gravity^2)
+//    - If the drag force exceeds the attachment force, the leaf will detach from the tree.
+//
+// This simulation allows users to input various parameters (mass, area, wind speed, tensile strength) and observe how they affect the stability of a leaf on a tree under wind conditions.
+
 
 #include <iostream>
 #include <cmath>
