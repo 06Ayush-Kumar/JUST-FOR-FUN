@@ -25,7 +25,6 @@ public:
         check_tensile_strength(ts);
     }
 
-    
     void check_wind_speed(float ws) {
         if (ws >= 0) {
             wind_speed = ws;
@@ -35,7 +34,6 @@ public:
         }
     }
 
-    // Method to check mass
     void check_mass(float m) {
         if (m >= 0) {
             mass = m;
@@ -45,7 +43,6 @@ public:
         }
     }
 
-    
     void check_area(float a) {
         if (a >= 0) {
             area = a;
@@ -55,41 +52,41 @@ public:
         }
     }
 
-   
     void check_tensile_strength(float ts) {
-        if (ts>= 0) {
-            tensile_strength=ts;
+        if (ts >= 0) {
+            tensile_strength = ts;
         } else {
-            cout << "tensile strenth can't be negative. Setting to 0." << endl;
+            cout << "Tensile strength can't be negative. Setting to 0." << endl;
             tensile_strength = 0;
         }
     }
 
-   
     float calculateDragForce() const {
         return 0.5 * Cd * density * area * wind_speed * wind_speed;
     }
 
-float calculateattachforce(){
-    attach_force=tensile_strength*area;
-    return attach_force;
-}
-void display_draf_force(){
-    cout<<calculateDragForce();
-}
-void display_attach_force(){
-cout<<calculateattachforce();
-}
+    float calculateAttachForce() {
+        attach_force = tensile_strength * area;
+        return attach_force;
+    }
+
+    void displayDragForce() {
+        cout << "Drag Force: " << calculateDragForce() << " N" << endl;
+    }
+
+    void displayAttachForce() {
+        cout << "Attachment Force: " << calculateAttachForce() << " N" << endl;
+    }
 
     void checkDetachment() const {
         float drag_force = calculateDragForce();
-        float attachment_force=calculateattachforce();
+        float attachment_force = calculateAttachForce();
         float total_force = sqrt((drag_force * drag_force) + (mass * g) * (mass * g));
 
         if (wind_speed == 0) {
             float attach_force_calc = mass * g;
-            cout << "The leaf will not detach. Attach force: " << attach_force_calc << endl;
-        } else if (attach_force > total_force) {
+            cout << "The leaf will not detach. Attach force: " << attach_force_calc << " N" << endl;
+        } else if (attachment_force > total_force) {
             cout << "The leaf will stay attached." << endl;
         } else {
             cout << "The leaf will detach." << endl;
@@ -98,25 +95,26 @@ cout<<calculateattachforce();
 };
 
 int main() {
-    float mass, area, wind_speed, attach_force;
+    float mass, area, wind_speed, tensile_strength;  
     
-    cout << "Please enter the mass of the leaf: ";
+    cout << "Please enter the mass of the leaf (kg): ";
     cin >> mass;
-    cout << "Please enter the area of the leaf: ";
+    cout << "Please enter the area of the leaf (m²): ";
     cin >> area;
-    cout << "Tell the wind speed: ";
+    cout << "Tell the wind speed (m/s): ";
     cin >> wind_speed;
-    cout << "Write the tensile strength: ";
+    cout << "Write the tensile strength (N/m²): ";  
     cin >> tensile_strength;
-    
     
     Leaf leaf(wind_speed, mass, area, tensile_strength);
     
-    leaf.display
+    leaf.displayDragForce();
+    leaf.displayAttachForce(); 
     leaf.checkDetachment();
 
     return 0;
 }
+
 
 
 
