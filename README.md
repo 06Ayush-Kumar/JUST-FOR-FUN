@@ -34,7 +34,13 @@ To use any of the projects, follow the instructions in the respective project's 
 - **Description**: Allows the user to create animal objects, specifying their characteristics like life status, number of legs, and backbone presence.
 - **File**: [AnimalClassification.cpp](AnimalClassification.cpp)
 
+### Calculator
+- **Description**: A simple calculator that performs basic arithmetic operations such as addition, subtraction, multiplication, and division.
+- **File**: [calculator.cpp](calculator.cpp)
 
+### Library Management System
+- **Description**: A program that manages the operations of a library, including adding, removing, and searching for books.
+- **File**: [library management.cpp](library%20management.cpp)
 
 
 
