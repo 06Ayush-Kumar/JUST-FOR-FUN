@@ -38,23 +38,28 @@ Description: Allows the user to create animal objects, specifying their characte
 File: AnimalClassification.cpp
 
 ## Contributing
+## Contributing
 
 If you'd like to contribute to this repository, please follow these steps:
 
-Fork the repository.
-Create a new branch:
+1. **Fork the repository.**
+2. **Create a new branch:**
+    ```bash
+    git checkout -b feature/YourFeature
+    ```
+3. **Make your changes and commit them:**
+    ```bash
+    git commit -m "Add your feature"
+    ```
+4. **Push to the branch:**
+    ```bash
+    git push origin feature/YourFeature
+    ```
+5. **Create a pull request.**
 
-git checkout -b feature/YourFeature
+   Go to the original repository on GitHub and click on the "Pull Requests" tab. Then click on the "New Pull Request" button. Select your branch and submit the pull request, providing a description of your changes.
 
-Make your changes and commit them:
 
-git commit -m "Add your feature"
-
-Push to the branch:
-
-git push origin feature/YourFeature
-
-Create a pull request.
 ## License
 This project is licensed under the MIT License - see the LICENSE file for details.
 
