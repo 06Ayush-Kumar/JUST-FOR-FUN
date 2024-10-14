@@ -24,16 +24,16 @@ This repository contains a collection of basic projects implemented in C++. Each
 ## Usage
 To use any of the projects, follow the instructions in the respective project's directory. Each project may have its own set of requirements and usage examples.
 
-
 ## Projects
 
 ### Leaf Detachment Simulation
 - **Description**: Simulates the conditions under which a leaf will detach from a tree based on user-defined inputs for mass, area, wind speed, and attachment force.
-- **File**: `LeafDetachmentSimulation.cpp`
+- **File**: [LeafDetachmentSimulation.cpp](LeafDetachmentSimulation.cpp)
 
 ### Animal Classification
 - **Description**: Allows the user to create animal objects, specifying their characteristics like life status, number of legs, and backbone presence.
-- **File**: `AnimalClassification.cpp`
+- **File**: [AnimalClassification.cpp](AnimalClassification.cpp)
+
 
 
 
