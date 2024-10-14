@@ -20,10 +20,10 @@ g++ -o project_name project_file.cpp
 Run the project:
 ./project_name
 
-##Usage
+## Usage
 To use any of the projects, follow the instructions in the respective project's directory. Each project may have its own set of requirements and usage examples.
 
-##Projects
+## Projects
 
 Leaf Detachment Simulation
 
@@ -37,7 +37,7 @@ Description: Allows the user to create animal objects, specifying their characte
 
 File: AnimalClassification.cpp
 
-##Contributing
+## Contributing
 
 If you'd like to contribute to this repository, please follow these steps:
 
@@ -55,7 +55,7 @@ Push to the branch:
 git push origin feature/YourFeature
 
 Create a pull request.
-##License
+## License
 This project is licensed under the MIT License - see the LICENSE file for details.
 
 python
