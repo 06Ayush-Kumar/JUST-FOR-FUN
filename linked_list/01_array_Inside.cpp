@@ -29,8 +29,7 @@ struct node {
 using Node = struct node; // Alias for the struct for convenience
 
 // Function to add a new node (student data) to the linked list
-// Passing Node*& head ensures that changes to the head pointer inside the function
-// are reflected outside the function. This is essential for modifying the linked list,
+// Passing Node*& head ensures that changes to the head pointer inside the function are reflected outside the function. This is essential for modifying the linked list,
 // such as adding the first node or updating the head pointer.
 // Without '&', only a local copy of head is modified, and the original head in main
 // remains unchanged (nullptr), so changes are not retained.
