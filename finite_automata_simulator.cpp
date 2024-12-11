@@ -54,9 +54,10 @@ str start_state_value;
 cout<<"enter the start state";
 cin>>start_state_value;
 /*
-int count=-1;
+int count=0;
 for (str x:state){
 if (x==start_state){
+return count;
 break;
 }
 
@@ -65,7 +66,7 @@ else{
  }
 
 }
-return count;
+return -1;
 */
 for (int x=0;x<state.size();x++){
   if (state[x]==start_state_value){
