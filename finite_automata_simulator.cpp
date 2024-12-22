@@ -242,3 +242,74 @@ cout<<"if u want to exit then press any integer rather than 1 and 2\n";
 cout<<"than you for using my finite automata simulator .I hope u have enjoyed it\n";
     return 0;
 }
+
+
+// uisng while loop for same
+ while (true) {  // Loop for continuous automata input
+        vector<str> state;
+        vector<vector<int>> transitions;
+        vector<str> alphabet;
+
+        state_input(state);
+        alphabet_input(alphabet);
+
+        int start_state_index = start_state(state);
+        int end_state_index = end_state(state);
+
+        cout << "The states are: ";
+        for (str x : state) {
+            cout << x << " ";
+        }
+        cout << "\n";
+
+        cout << "The alphabet symbols are: ";
+        for (str x : alphabet) {
+            cout << x << " ";
+        }
+        cout << "\n";
+
+        cout << "Start state value: ";
+        if (start_state_index == -1) {
+            cout << "Start state not found.\n";
+        } else {
+            cout << state[start_state_index] << "\n";
+        }
+
+        cout << "End state value: ";
+        if (end_state_index == -1) {
+            cout << "End state not found.\n";
+        } else {
+            cout << state[end_state_index] << "\n";
+        }
+
+        transition_input(transitions, state, alphabet);
+
+        while (true) {  // Loop for string input and testing
+            string input;
+            cout << "Enter a string to check: ";
+            cin >> input;
+
+            if (check_input(input, state, alphabet, transitions, start_state_index, end_state_index)) {
+                cout << "The string is accepted by the automaton.\n";
+            } else {
+                cout << "The string is not accepted by the automaton.\n";
+            }
+
+            cout << "Enter another string? (y/n): ";
+            char cont;
+            cin >> cont;
+            if (cont == 'n' || cont == 'N') {
+                break;
+            }
+        }
+
+        cout << "Set up another automaton? (y/n): ";
+        char cont;
+        cin >> cont;
+        if (cont == 'n' || cont == 'N') {
+            break;
+        }
+    }
+
+    cout << "Thank you for using the finite automata simulator. I hope you enjoyed it.\n";
+ 
