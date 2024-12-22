@@ -15,6 +15,9 @@
 //Let the user test the automaton by providing an input string, and follow the transitions to see if it ends in the final state.
 //Finally, show the user the states, the alphabet symbols, and the transition table so they can understand how the automaton works.
 
+// updates:
+// used 2 do while loop for continuous use of finite auotmata
+// now user can enter new string for the old input
 
 
 
@@ -55,7 +58,7 @@ cout<<"enter the start state";
 cin>>start_state_value;
 /*
 int count=0;
-for (str x:state){
+for (str x:state){
 if (x==start_state){
 return count;
 break;
@@ -168,11 +171,18 @@ bool check_input(const string& input, const vector<str>& state, const vector<str
 
 
 int main(){
+
+                         // using for continuous use of the fintie automata 
   vector<str> state;
     vector<vector<int>> transitions;
     vector<str> alphabet;
-
-    
+   // int case        // don't use case as it is reserved variable
+    int ch;
+    string input;
+    // int start_state_index;  // declaring here so it can be access throught whole switch case
+  //  int end_state_index;
+   int choice;
+do{
     state_input(state);
     alphabet_input(alphabet);
 
@@ -207,10 +217,10 @@ int main(){
 
     
     transition_input(transitions, state, alphabet);
-
-    
-    string input;
-    cout << "Enter a string to check: ";
+//int choice; it works for this do while loop but now i want it to work for the bigger while loop.thatswhy declaring it on top
+ do{
+  
+  cout << "Enter a string to check: ";
     cin >> input;
 
     if (check_input(input, state, alphabet, transitions, start_state_index, end_state_index)) {
@@ -218,6 +228,17 @@ int main(){
     } else {
         cout << "The string is not accepted by the automaton.\n";
     }
+  // int choice;   have to declare it outside of do loop as it is not accessed by while ()
+   cout<<"if u want to enter a new string then enter  1\n";
+cout<<"if u want to enter a  new automata then press 2\n";
+cout<<"if u want to exit then press any integer rather than 1 and 2\n";
+   cin>>choice;
+   
 
+
+}while(choice==1);
+
+}while(choice==2); 
+cout<<"than you for using my finite automata simulator .I hope u have enjoyed it\n";
     return 0;
 }
