@@ -1,4 +1,4 @@
-# My Basic Projects
+# JUST FOR FUN
 
 ## Description
 This repository contains a collection of basic projects implemented in C++. Each project demonstrates fundamental concepts and techniques in programming, including object-oriented programming, data structures, and algorithms. These projects serve as practical examples for learning and understanding C++.
