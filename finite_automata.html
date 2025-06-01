@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Finite Automata Simulator</title>
+  <script src="https://unpkg.com/cytoscape@3.23.0/dist/cytoscape.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #6a11cb, #2575fc);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      background: #ffffff;
+      width: 95%;
+      max-width: 1200px;
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 2.5rem;
+      color: #444;
+      margin-bottom: 30px;
+    }
+
+    .form-group {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-bottom: 25px;
+    }
+
+    label {
+      font-weight: 600;
+      color: #222;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    input, button, select {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+      transition: border-color 0.3s ease;
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: #6a11cb;
+    }
+
+    button {
+      background: linear-gradient(to right, #6a11cb, #2575fc);
+      color: white;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: linear-gradient(to right, #5a0fc7, #1f64e4);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    table, th, td {
+      border: 1px solid #ccc;
+    }
+
+    th, td {
+      padding: 10px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #f0f0f0;
+    }
+
+    .add-btn {
+      margin-top: 10px;
+      background: #28a745;
+    }
+
+    .remove-btn {
+      background: #dc3545;
+    }
+
+    #cy {
+      height: 420px;
+      border: 2px solid #eee;
+      margin-top: 30px;
+      border-radius: 10px;
+      background-color: #fdfdfd;
+    }
+
+    .result {
+      font-size: 16px;
+      font-weight: 600;
+      padding: 12px;
+      border-radius: 8px;
+      margin-top: 15px;
+    }
+
+    .result.success {
+      background-color: #e0fce3;
+      color: #237a3a;
+      border: 1px solid #98e9a3;
+    }
+
+    .result.error {
+      background-color: #fde2e2;
+      color: #c0392b;
+      border: 1px solid #f5b5b5;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>🎛  Finite Automata Simulator</h2>
+
+  <div class="form-group">
+    <div>
+      <label>States (comma-separated)</label>
+      <input id="statesInput" placeholder="e.g. q0,q1,q2">
+    </div>
+    <div>
+      <label>Alphabets (comma-separated)</label>
+      <input id="alphabetsInput" placeholder="e.g. 0,1">
+    </div>
+    <div>
+      <label>Start State</label>
+      <input id="startStateInput" placeholder="e.g. q0">
+    </div>
+    <div>
+      <label>End State</label>
+      <input id="endStateInput" placeholder="e.g. q2">
+    </div>
+  </div>
+
+  <h3>📋 Transition Table</h3>
+  <table id="transitionTable">
+    <thead>
+      <tr>
+        <th>Current State</th>
+        <th>Input Symbol</th>
+        <th>Next State</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+  <button class="add-btn" onclick="addTransitionRow()">➕ Add Transition</button>
+
+  <button onclick="initialize()" style="margin-top: 30px">🚀 Initialize Automaton</button>
+
+  <div id="cy"></div>
+
+  <div class="form-group" style="margin-top: 25px">
+    <div>
+      <label>Input String</label>
+      <input id="inputString" placeholder="e.g. 01">
+    </div>
+    <div style="align-self: end">
+      <button onclick="checkString()">✅ Check String</button>
+    </div>
+  </div>
+
+  <div id="result" class="result"></div>
+</div>
+
+<script>
+  let states = [], alphabets = [], startState = '', endState = '', transitions = {};
+  let cy;
+
+  function addTransitionRow() {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td><input type="text" class="current"></td>
+      <td><input type="text" class="symbol"></td>
+      <td><input type="text" class="next"></td>
+      <td><button class="remove-btn" onclick="this.closest('tr').remove()">Remove</button></td>
+    `;
+    document.querySelector("#transitionTable tbody").appendChild(row);
+  }
+
+  function initialize() {
+    states = document.getElementById("statesInput").value.split(",").map(s => s.trim());
+    alphabets = document.getElementById("alphabetsInput").value.split(",").map(s => s.trim());
+    startState = document.getElementById("startStateInput").value.trim();
+    endState = document.getElementById("endStateInput").value.trim();
+    transitions = {};
+
+    const rows = document.querySelectorAll("#transitionTable tbody tr");
+    rows.forEach(row => {
+      const current = row.querySelector(".current").value.trim();
+      const symbol = row.querySelector(".symbol").value.trim();
+      const next = row.querySelector(".next").value.trim();
+      if (!transitions[current]) transitions[current] = {};
+      transitions[current][symbol] = next;
+    });
+
+    document.getElementById("result").innerText = "";
+    drawGraph();
+  }
+
+  function checkString() {
+    const input = document.getElementById("inputString").value.trim();
+    let currentState = startState;
+
+    for (let ch of input) {
+      if (!alphabets.includes(ch)) return showResult(`❌ Invalid symbol "${ch}" not in alphabet.`, false);
+      if (!transitions[currentState] || !transitions[currentState][ch]) return showResult(`❌ No transition from "${currentState}" on "${ch}"`, false);
+      currentState = transitions[currentState][ch];
+    }
+
+    showResult(currentState === endState ? "✅ String is accepted by the automaton." : "❌ String is rejected by the automaton.", currentState === endState);
+  }
+
+  function showResult(msg, success) {
+    const res = document.getElementById("result");
+    res.innerText = msg;
+    res.className = `result ${success ? "success" : "error"}`;
+  }
+
+  function drawGraph() {
+    const elements = [];
+    states.forEach(state => {
+      elements.push({ data: { id: state, label: state } });
+    });
+    for (let from in transitions) {
+      for (let symbol in transitions[from]) {
+        const to = transitions[from][symbol];
+        elements.push({ data: { id: `${from}_${symbol}_${to}`, source: from, target: to, label: symbol } });
+      }
+    }
+    if (cy) cy.destroy();
+    cy = cytoscape({
+      container: document.getElementById('cy'),
+      elements: elements,
+      style: [
+        { selector: 'node', style: {
+          'background-color': '#6a11cb',
+          'label': 'data(label)',
+          'color': '#fff', 'text-valign': 'center', 'text-halign': 'center',
+          'font-size': '14px', 'width': 50, 'height': 50,
+          'border-width': 3, 'border-color': '#2575fc' }},
+        { selector: 'edge', style: {
+          'width': 2, 'line-color': '#666', 'target-arrow-color': '#666',
+          'target-arrow-shape': 'triangle', 'curve-style': 'bezier',
+          'label': 'data(label)', 'font-size': 13,
+          'text-background-color': '#fff', 'text-background-opacity': 1,
+          'text-background-padding': 2 }}
+      ],
+      layout: { name: 'cose', animate: true }
+    });
+  }
+</script>
+
+</body>
+</html>
